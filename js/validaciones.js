@@ -62,19 +62,20 @@ function validar_nombre_usuario() {
     }
 
     var i;
-    var seEncontraronDigitos = false;
-    for (i = 1; i < nombre.length; i++) {
+    for (i = 0; i < nombre.length; i++) {
         var caracter = nombre.charAt(i);
         if (tiene_digito(caracter)) {
-            seEncontraronDigitos = true;
-            break;
+            break; 
         }
     }
 
-    if (seEncontraronDigitos) {
-        div_error_nombre.innerHTML = 'El nombre no puede contener letras después de los dígitos';
-        div_error_nombre.className = 'text-danger small mt-1 mb-2';
-        return false;
+    for (var j = i; j < nombre.length; j++) {
+        var caracter = nombre.charAt(j);
+        if (!tiene_digito(caracter)) {
+            div_error_nombre.innerHTML = 'Los dígitos solo pueden estar al final después de todas las letras';
+            div_error_nombre.className = 'text-danger small mt-1 mb-2';
+            return false;
+        }
     }
 
     div_error_nombre.innerHTML = '';
